@@ -11,4 +11,14 @@
 <body>
     {{{ body }}}
     <script src="/javascripts/bootstrap.js"></script>
+    <script>
+      const urlForm = document.querySelector('#urlForm')
+      const urlInput = document.querySelector('#urlInput')
+      urlForm.addEventListener('submit', function (event){
+        if (!urlInput.value) {
+          event.preventDefault()
+          alert('請輸入網址!')
+        }
+      })
+    </script>
 </body>

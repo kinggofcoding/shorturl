@@ -11,13 +11,14 @@
       <a href='http://localhost:3000/{{id}}'>http://localhost:3000/{{id}}</a>
     </div>
   {{else}}
-    <form action='/shorturl' method='POST'>
+    <form action='/shorturl' method='POST' id="urlForm">
       <div class='input-group mb-3'>
         <input
           name='url'
           type='text'
           class='form-control'
           placeholder='Input URL here'
+          id="urlInput"
         />
         <button
           class='btn btn-outline-primary'

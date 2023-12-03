@@ -13,29 +13,36 @@ app.use(express.static('public'))
 const urlDataPath = path.join(__dirname, 'urlData.json')
 
 app.get('/', (req, res) => {
-  res.render('index')
+  try {
+    res.render('index')
+  } catch (error) {
+    res.render('error', { error: error.message })
+  }
 })
 
 app.post('/shorturl', (req, res) => {
-  const { url } = req.body
-  const urlData = fs.existsSync(urlDataPath)
-    ? JSON.parse(fs.readFileSync(urlDataPath, 'utf-8'))
-    : []
-  const id = idGenerator(urlData, url)
-  res.render('index', { id })
+  try {
+    const { url } = req.body
+    const urlData = fs.existsSync(urlDataPath)
+      ? JSON.parse(fs.readFileSync(urlDataPath, 'utf-8'))
+      : []
+    const id = idGenerator(urlData, url)
+    res.render('index', { id })
+  } catch (error) {
+    res.render('error', { error: error.message })
+  }
 })
 
 app.get('/:id', (req, res) => {
-  const { id } = req.params
-  const urlData = JSON.parse(fs.readFileSync(urlDataPath, 'utf-8')) || []
-
   try {
+    const { id } = req.params
+    const urlData = JSON.parse(fs.readFileSync(urlDataPath, 'utf-8')) || []
     if (urlData.length) {
       const data = urlData.find((data) => data.id === id)
       res.redirect(data.url)
     }
   } catch (error) {
-    res.send(`error msg:${error}`)
+    res.render('error', { error: error.message })
   }
 })
 

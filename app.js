@@ -21,15 +21,7 @@ app.post('/shorturl', (req, res) => {
   const urlData = fs.existsSync(urlDataPath)
     ? JSON.parse(fs.readFileSync(urlDataPath, 'utf-8'))
     : []
-  const id = checkRandomId(urlData)
-
-  urlData.push({
-    id,
-    url,
-  })
-
-  fs.writeFileSync(urlDataPath, JSON.stringify(urlData), 'utf-8')
-
+  const id = idGenerator(urlData, url)
   res.render('index', { id })
 })
 
@@ -56,6 +48,25 @@ function checkRandomId(urlData) {
   }
   return id
 }
+
+function idGenerator(urlData, url) {
+  let id = ''
+  const data = urlData.find((data) => data.url === url)
+  if (data) {
+    id = data.id
+  } else {
+    id = checkRandomId(urlData)
+
+    urlData.push({
+      id,
+      url,
+    })
+
+    fs.writeFileSync(urlDataPath, JSON.stringify(urlData), 'utf-8')
+  }
+  return id
+}
+
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000')
 })

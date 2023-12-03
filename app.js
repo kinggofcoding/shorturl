@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
 
 app.post('/shorturl', (req, res) => {
   const { url } = req.body
-  const urlData = fs.existsSync(urlDataPath) ? JSON.parse(fs.readFileSync(urlDataPath, 'utf-8')) : []
+  const urlData = fs.existsSync(urlDataPath)
+    ? JSON.parse(fs.readFileSync(urlDataPath, 'utf-8'))
+    : []
   const id = checkRandomId(urlData)
 
   urlData.push({
@@ -31,6 +33,19 @@ app.post('/shorturl', (req, res) => {
   res.render('index', { id })
 })
 
+app.get('/:id', (req, res) => {
+  const { id } = req.params
+  const urlData = JSON.parse(fs.readFileSync(urlDataPath, 'utf-8')) || []
+
+  try {
+    if (urlData.length) {
+      const data = urlData.find((data) => data.id === id)
+      res.redirect(data.url)
+    }
+  } catch (error) {
+    res.send(`error msg:${error}`)
+  }
+})
 
 function checkRandomId(urlData) {
   let id = randomGenerator(5)

@@ -5,18 +5,26 @@
     class='rounded mx-auto d-block'
     alt='...'
   />
-  <form action='/shorturl' method="post">
-    <div class='input-group mb-3'>
-      <input
-        type='text'
-        class='form-control'
-        placeholder="Input URL here"
-      />
-      <button
-        class='btn btn-outline-primary'
-        type='button'
-        id='button-addon2'
-      >Get URL</button>
+  {{#if id}}
+    <div>
+      Result:
+      <a href='http://locahost:3000/{{id}}'>http://locahost:3000/{{id}}</a>
     </div>
-  </form>
+  {{else}}
+    <form action='/shorturl' method='POST'>
+      <div class='input-group mb-3'>
+        <input
+          name='url'
+          type='text'
+          class='form-control'
+          placeholder='Input URL here'
+        />
+        <button
+          class='btn btn-outline-primary'
+          type='submit'
+          id='button-addon2'
+        >Get URL</button>
+      </div>
+    </form>
+  {{/if}}
 </div>

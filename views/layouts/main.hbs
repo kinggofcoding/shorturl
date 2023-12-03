@@ -14,11 +14,18 @@
     <script>
       const urlForm = document.querySelector('#urlForm')
       const urlInput = document.querySelector('#urlInput')
+      const copyBtn = document.querySelector('#copyBtn')
+      const shortUrlLink = document.querySelector('#shortUrlLink')
       urlForm.addEventListener('submit', function (event){
         if (!urlInput.value) {
           event.preventDefault()
           alert('請輸入網址!')
         }
       })
+
+      copyBtn.addEventListener('click', function (event) {
+        navigator.clipboard.writeText(shortUrlLink.value)
+        alert(`以複製網址:${shortUrlLink.value}`)
+      })      
     </script>
 </body>

@@ -8,22 +8,28 @@
   {{#if id}}
     <div>
       Result:
-      <a href='http://localhost:3000/{{id}}'>http://localhost:3000/{{id}}</a>
+      <a id="shortUrlLink" href='http://localhost:3000/{{id}}'>http://localhost:3000/{{id}}</a>
+    </div>
+    <div>
+      <button
+        class='btn btn-outline-success'
+        type='button'
+        id='copyBtn'
+      >Copy URL</button>
     </div>
   {{else}}
-    <form action='/shorturl' method='POST' id="urlForm">
+    <form action='/shorturl' method='POST' id='urlForm'>
       <div class='input-group mb-3'>
         <input
           name='url'
           type='text'
           class='form-control'
           placeholder='Input URL here'
-          id="urlInput"
+          id='urlInput'
         />
         <button
           class='btn btn-outline-primary'
           type='submit'
-          id='button-addon2'
         >Get URL</button>
       </div>
     </form>

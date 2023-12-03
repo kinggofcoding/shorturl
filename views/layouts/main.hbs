@@ -17,6 +17,7 @@
       const copyBtn = document.querySelector('#copyBtn')
       const shortUrlLink = document.querySelector('#shortUrlLink')
 
+      // 如果沒輸入網址，不可送出表單並提示使用者
       if (urlForm) {
         urlForm.addEventListener('submit', function (event){
           if (!urlInput.value) {
@@ -26,7 +27,7 @@
         })        
       }
 
-
+      // 複製產生的短網址
       if (copyBtn) {
         copyBtn.addEventListener('click', function (event) {
           navigator.clipboard.writeText(shortUrlLink.innerText)
